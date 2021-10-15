@@ -13,7 +13,7 @@
         <v-btn color="primary" @click="createUser">ADD USER</v-btn>
       </v-col>
       <v-col cols="12">
-          <h1>Hello, Qiita! </h1>
+          <h1>Lui! </h1>
         </v-col>
       </v-row>
 
