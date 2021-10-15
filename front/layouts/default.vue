@@ -1,7 +1,7 @@
 <template>
 <v-app>
   <SideMenu />
-  <v-container>
+  <v-main>
     <v-row align="center" justify="center">
       <v-col cols="12">
         <v-text-field
@@ -37,7 +37,7 @@
             </v-list-item-group>
           </v-list>
       </v-card>
-    </v-container>
+    </v-main>
     </v-app>
 </template>
 

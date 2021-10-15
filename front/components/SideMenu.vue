@@ -19,6 +19,25 @@
               </nuxt-link> -->
           </v-list-item>
         </v-list-item-group>
+        <v-bottom-sheet v-model="sheet" inset>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn color="orange" dark v-bind="attrs" v-on="on">
+              Add User
+            </v-btn>
+          </template>
+          <v-sheet class="text-center" height="200px">
+            <v-text-field
+        label="Username"
+        v-model="name"
+        prepend-icon=""
+        type="text"
+        />
+         <v-btn color="primary" @click="createUser">ADD USER</v-btn>
+        <v-btn text color="error" @click="sheet = !sheet">
+          close
+        </v-btn>
+          </v-sheet>
+        </v-bottom-sheet>
       </v-list>
     </v-navigation-drawer>
     <v-app-bar app>
@@ -37,7 +56,8 @@ export default {
       drawer: null,
       title: '',
       name: "",
-      users: []
+      users: [],
+      sheet: false
     }
   },
   created() {
@@ -47,6 +67,17 @@ export default {
           this.users = res.data
           }
         })
+  },
+  methods: {
+    // ユーザーをaxiosで登録
+    createUser(){
+      axios.post("/users", {name: this.name})
+    .then(res => {
+      if (res.data) {
+          this.users.push(res.data)
+          }
+        })
+      }
   }
 
   // computed: {
