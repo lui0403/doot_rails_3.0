@@ -1,57 +1,60 @@
 <template>
-<v-app>
-  <SideMenu />
-  <v-main>
-    <v-row align="center" justify="center">
-      <v-col cols="12">
-        <v-text-field
+  <header>
+    <Nuxt />
+    <v-navigation-drawer v-model="drawer" fixed temporary>
+      <v-list rounded>
+        <v-list-item-group>
+          <!-- <v-list-item v-for="item in menuItems" :key="item.name"> -->
+          <v-list-item
+            v-for="user in users"
+            :key="user"
+            nuxt
+          >
+            <v-list-item-content>
+              <v-list-item-title v-text="user.name"></v-list-item-title>
+            </v-list-item-content>
+            <!-- <nuxt-link :to="item.id">
+                <v-list-item-title>{{ item.name }}</v-list-item-title>
+              </nuxt-link> -->
+          </v-list-item>
+        </v-list-item-group>
+        <v-bottom-sheet v-model="sheet" inset>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn color="orange" dark v-bind="attrs" v-on="on">
+              Add User
+            </v-btn>
+          </template>
+          <v-sheet class="text-center" height="200px">
+            <v-text-field
         label="Username"
         v-model="name"
         prepend-icon=""
         type="text"
         />
-        <v-btn color="primary" @click="createUser">ADD USER</v-btn>
-      </v-col>
-      <v-col cols="12">
-          <h1>Lui! </h1>
-        </v-col>
-      </v-row>
-
-      <v-card
-        class="mx-auto"
-        max-width="300"
-        tile
-      >
-          <v-list rounded>
-            <v-subheader>USERS</v-subheader>
-            <v-list-item-group color="primary">
-              <v-list-item
-                v-for="user in users"
-                :key="users.id"
-                @click=""
-              >
-                <v-list-item-content>
-                  <v-list-item-title v-text="user.name"></v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list-item-group>
-          </v-list>
-      </v-card>
-    </v-main>
-    </v-app>
+         <v-btn color="primary" @click="createUser">ADD USER</v-btn>
+        <v-btn text color="error" @click="sheet = !sheet">
+          close
+        </v-btn>
+          </v-sheet>
+        </v-bottom-sheet>
+      </v-list>
+    </v-navigation-drawer>
+    <v-app-bar app>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+    </v-app-bar>
+  </header>
 </template>
 
 <script>
 import axios from "~/plugins/axios"
 
 export default {
-  components: {
-    SideMenu: () => import("@/components/SideMenu.vue")
-  },
-  data() {
-    return {
+  data(){
+    return{
+      drawer: null,
       name: "",
-      users: []
+      users: [],
+      sheet: false
     }
   },
   created() {
@@ -73,5 +76,24 @@ export default {
         })
       }
   }
-}
+
+  // computed: {
+  //   grobalMenus() {
+  //     return this.$store.getters["menu/sidemenuOf"]("index").menus;
+  //   },
+  //   menus() {
+  //     return pageId => {
+  //       return this.$store.getters["menu/sidemenuOf"](pageId).menus;
+  //     };
+  //   },
+  // },
+  // methods: {
+  //   TitleName() {
+  //     this.title = this.$route.name.split('-')[1]
+  //   },
+  //   isSelected(menu) {
+  //     return this.$route.url === menu.url
+  //   }
+  // }
+};
 </script>

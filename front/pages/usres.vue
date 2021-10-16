@@ -1,16 +1,5 @@
 <template>
-  <v-main>
-    <h1>チャットアプリ</h1>
-    <h3>ユーザー一覧</h3>
-    <v-list-item
-      v-for="user in users"
-      :key="user"
-    >
-      <v-list-item-content>
-        <v-list-item-title v-text="user.name"></v-list-item-title>
-        </v-list-item-content>
-    </v-list-item>
-    <v-container>
+  <v-container>
     <v-row align="center" justify="center">
       <v-col cols="12">
         <v-text-field
@@ -46,7 +35,6 @@
           </v-list>
       </v-card>
     </v-container>
-  </v-main>
 </template>
 
 <script>
